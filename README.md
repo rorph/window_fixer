@@ -8,6 +8,8 @@ I'm using a AutoHotKey macro to save and restore window position, there's a bonu
 
 You might wanna look into the .ahk , vars.php and .bat files changing them to your correct paths.
 
+You will need cmdow - https://github.com/rorph/window_fixer.git
+
 I couldn't care less to code this on a friendly way, but I mean, it works!
 
 Enjoy!
