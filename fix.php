@@ -42,17 +42,29 @@ switch ($argv[1]) {
 	
 	case 'test':
 	case 'load':
-		$slot = isset($argv[2]) ? intval($argv[2]) : false;
+		$slot = isset($argv[2]) ? $argv[2] : false;
 		
 		if ($slot === false) { // get newest file from folder
-			$files = scandir(SLOT_PATH, SCANDIR_SORT_DESCENDING);
-			$slot = substr(basename($files[0]), 0, -4);
+			$files = glob(SLOT_PATH . '*.php');
+			$max = 0;
+			$fn = false;
+			
+			foreach ($files as $file) {
+				$fm = filemtime($file);
+				if ($fm > $max) {
+					$max = $fm;
+					$fn = $file;
+				}
+			}
+			
+		} else {
+			$fn = SLOT_PATH . $slot . '.php';
 		}
-		
-		$fn = SLOT_PATH . $slot . '.php';
 		
 		if (!file_exists($fn))
 			die('File `' . $fn . '` doesn\'t exists!');
+		else
+			echo 'Loading: `' . $fn . "` ... \n";
 		
 		require_once($fn);
 		
